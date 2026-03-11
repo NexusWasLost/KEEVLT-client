@@ -27,6 +27,7 @@ async function init() {
     setupModal(openModalBtn, addKeyModal, closeModalElements);
     setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token);
     setupCopyAndDeleteHandler(keysTableBody, token);
+    setupEditModal(keysTableBody, token);
     setupLogout(logoutBtn);
 }
 
@@ -38,8 +39,9 @@ function createKeyRow(data) {
         <td class="is-vcentered"><code>...${data.key_hint}</code></td>
         <td class="has-text-right">
             <div class="buttons is-right">
-                <button id="btn-copy" class="button is-small is-dark">Copy</button>
-                <button id="btn-del" class="button is-small is-dark">Delete</button>
+                <button id="btn-copy" class="button is-small is-dark btn-copy">Copy</button>
+                <button id="btn-edit" class="button is-small is-dark btn-edit">Edit</button>
+                <button id="btn-del" class="button is-small is-dark btn-del">Delete</button>
             </div>
         </td>
     `;
@@ -190,6 +192,35 @@ async function deleteKey(keyId, token) {
     }
 }
 
+// --- API: Update Key ---
+async function updateKey(keyId, token, newServiceName, newAPIKeyName) {
+    try {
+        const response = await fetch(`http://127.0.0.1:8787/api/update-key/${keyId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify({
+                newServiceName,
+                newAPIKeyName
+            })
+        });
+
+        if (!response.ok) {
+            alert("Failed to update key.");
+            return false;
+        }
+
+        return true;
+    }
+    catch (error) {
+        console.error("Update request failed:", error);
+        alert("Network error while updating key.");
+        return false;
+    }
+}
+
 // --- Event Delegation: Handle Copy & Delete ---
 function setupCopyAndDeleteHandler(keysTableBody, token) {
     if (!keysTableBody) return;
@@ -243,6 +274,82 @@ function setupCopyAndDeleteHandler(keysTableBody, token) {
         }
     });
 }
+
+function setupEditModal(keysTableBody, token) {
+    const editKeyModal = document.querySelector("#editKeyModal");
+    const editServiceName = document.querySelector("#editServiceName");
+    const editKeyLabel = document.querySelector("#editKeyLabel");
+    const updateKeyBtn = document.querySelector("#updateKeyBtn");
+
+    const closeElements = document.querySelectorAll(
+        "#editKeyModal .modal-background, #editKeyModal .delete, #editKeyModal .btn-edit-cancel"
+    );
+
+    let originalService = "";
+    let originalLabel = "";
+
+    keysTableBody.addEventListener("click", function (e) {
+        if (!e.target.classList.contains("btn-edit")) return;
+        const row = e.target.closest("tr");
+        const serviceText = row.children[0].innerText;
+        const parts = serviceText.split(" - ");
+
+        originalService = parts[0];
+        originalLabel = parts[1];
+
+        editServiceName.value = originalService;
+        editKeyLabel.value = originalLabel;
+
+        updateKeyBtn.disabled = true;
+        editKeyModal.classList.add("is-active");
+    });
+
+    editServiceName.addEventListener("input", function () {
+        if (editServiceName.value !== originalService || editKeyLabel.value !== originalLabel) {
+            updateKeyBtn.disabled = false;
+        }
+        else {
+            updateKeyBtn.disabled = true;
+        }
+    });
+
+    editKeyLabel.addEventListener("input", function () {
+        if (editServiceName.value !== originalService || editKeyLabel.value !== originalLabel) {
+            updateKeyBtn.disabled = false;
+        }
+        else {
+            updateKeyBtn.disabled = true;
+        }
+    });
+
+    updateKeyBtn.addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        const row = document.querySelector("tr[data-id]");
+        if (!row) return;
+
+        const keyId = row.getAttribute("data-id");
+
+        const newServiceName = editServiceName.value;
+        const newAPIKeyName = editKeyLabel.value;
+
+        const success = await updateKey(keyId, token, newServiceName, newAPIKeyName);
+
+        if (!success) return;
+
+        row.children[0].innerText = newServiceName + " - " + newAPIKeyName;
+
+        editKeyModal.classList.remove("is-active");
+    });
+
+    for (let x = 0; x < closeElements.length; x++) {
+        closeElements[x].addEventListener("click", function (e) {
+            e.preventDefault();
+            editKeyModal.classList.remove("is-active");
+        });
+    }
+}
+
 
 function setupLogout(logoutBtn) {
     if (!logoutBtn) return;
