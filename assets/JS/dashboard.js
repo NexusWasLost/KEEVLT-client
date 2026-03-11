@@ -14,7 +14,6 @@ async function init() {
 
     const addKeyModal = document.querySelector("#addKeyModal");
     const openModalBtn = document.querySelector("#openAddModal");
-    const logoutBtn = document.querySelector(".navbar-end .button.is-dark");
     const saveKeyBtn = document.querySelector("#saveKeyBtn");
     const keysTableBody = document.querySelector("#keysTableBody");
 
@@ -28,7 +27,6 @@ async function init() {
     setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token);
     setupCopyAndDeleteHandler(keysTableBody, token);
     setupEditModal(keysTableBody, token);
-    setupLogout(logoutBtn);
 }
 
 function createKeyRow(data) {
@@ -348,18 +346,4 @@ function setupEditModal(keysTableBody, token) {
             editKeyModal.classList.remove("is-active");
         });
     }
-}
-
-
-function setupLogout(logoutBtn) {
-    if (!logoutBtn) return;
-
-    logoutBtn.addEventListener("click", async function () {
-        try {
-            await logoutUser();
-        }
-        catch (error) {
-            console.error("Logout failed", error);
-        }
-    });
 }

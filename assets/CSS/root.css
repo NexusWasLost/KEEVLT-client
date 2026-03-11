@@ -24,6 +24,11 @@ a {
   color: var(--secondary-accent-color);
 }
 
+/* for icons */
+.r-icon{
+    margin-left: 5px;
+}
+
 /* Force Navbar to stay horizontal on mobile */
 .navbar>.container {
   display: flex !important;

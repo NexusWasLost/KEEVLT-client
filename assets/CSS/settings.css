@@ -1,0 +1,45 @@
+.settings-section{
+    margin-bottom:3rem;
+}
+
+.settings-title{
+    font-size:0.85rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+    color:#888;
+    margin-bottom:1rem;
+}
+
+.settings-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1rem 0;
+    border-bottom:1px solid #1a1a1a;
+}
+
+.settings-row:last-child{
+    border-bottom:none;
+}
+
+.action-row button{
+    min-width:110px;
+}
+
+.button{
+    font-size: 1rem !important;
+}
+
+.danger-title{
+    color:#ff6b6b;
+}
+
+.danger-btn{
+    background-color:#3a1a1a !important;
+    color:white !important;
+    border:none !important;
+}
+
+.danger-btn:hover{
+    background-color:#4a2020 !important;
+}
