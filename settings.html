@@ -25,7 +25,7 @@
                     <div class="navbar-end">
 
                         <div class="navbar-item">
-                            <a class="navbar-item">My Keys</a>
+                            <a class="navbar-item" href="/dashboard.html">My Keys</a>
                         </div>
 
                         <div class="navbar-item">
@@ -56,12 +56,17 @@
 
                     <div class="settings-row">
                         <span>Email</span>
-                        <span class="has-text-grey">user@email.com</span>
+                        <span id="email-span" class="has-text-grey">email@example.xy</span>
+                    </div>
+
+                    <div class="settings-row">
+                        <span>Name</span>
+                        <span id="name-span" class="has-text-grey">John Doe</span>
                     </div>
 
                     <div class="settings-row">
                         <span>Account Created</span>
-                        <span class="has-text-grey">March 2026</span>
+                        <span id="created-at-span" class="has-text-grey">March 2026</span>
                     </div>
 
                 </div>
@@ -75,7 +80,7 @@
 
                     <div class="settings-row action-row">
                         <span>Logout</span>
-                        <button class="button is-dark is-small">Logout <i class="ri-logout-box-r-line r-icon"></i></button>
+                        <button id="settingsLogoutBtn" class="button is-dark is-small">Logout <i class="ri-logout-box-r-line r-icon"></i></button>
                     </div>
 
                 </div>
@@ -90,7 +95,7 @@
                     <div class="settings-row action-row">
                         <span>Delete Account </span>
 
-                        <button class="button danger-btn is-small">
+                        <button id="deleteAccountBtn" class="button danger-btn is-small">
                             Delete <i class="ri-delete-bin-6-line r-icon"></i>
                         </button>
 
