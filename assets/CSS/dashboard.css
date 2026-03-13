@@ -1,3 +1,19 @@
+.user-profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #333;
+    overflow: hidden;
+    background: #0000;
+}
+
+.user-profile img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
 /* --- TABLE REFINEMENT --- */
 .table {
     background-color: transparent !important;
@@ -56,11 +72,27 @@
     background-color: rgba(255, 56, 96, 0.1) !important;
 }
 
-#btn-copy, #btn-edit, #btn-del{
+#btn-copy, #btn-edit, #btn-del {
     font-size: 1rem !important;
 }
 
-/* --- MODAL SYNC --- */
+/* MODALS */
+.modal-card-foot .button:not(:last-child) {
+    margin-right: 0.75rem !important;
+}
+
+/* Save Button with Primary Accent */
+.btn-save-modal {
+    background-color: var(--primary-accent-color) !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 600;
+}
+
+.btn-save-modal:hover {
+    opacity: 0.9;
+}
+
 .modal-card-head,
 .modal-card-foot {
     background-color: #111 !important;
@@ -69,13 +101,28 @@
 
 .modal-card-body {
     background-color: #0a0a0a !important;
+    color: var(--secondary-accent-color) !important;
+}
+
+.modal-card-title {
+    color: var(--secondary-accent-color) !important;
+    font-weight: bold;
+}
+
+.modal .label {
+    color: #888 !important;
 }
 
 .modal .input,
 .modal .textarea {
     background-color: #1a1a1a !important;
-    border: 1px solid #333 !important;
+    resize: none;
     color: var(--secondary-accent-color) !important;
+}
+
+.modal .input:focus,
+.modal .textarea:focus {
+    border: 1px solid var(--primary-accent-color) !important;
 }
 
 /* --- YOUR RESPONSIVE FLEX LOGIC --- */

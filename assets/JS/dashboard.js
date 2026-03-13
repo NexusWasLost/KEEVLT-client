@@ -21,8 +21,9 @@ async function init() {
         "#addKeyModal .modal-background, #addKeyModal .delete, #addKeyModal .modal-card-foot .is-light"
     );
 
-    await fetchKeys(token, keysTableBody);
+    setUserAvatar(session.user.user_metadata.avatar_url);
 
+    await fetchKeys(token, keysTableBody);
     setupModal(openModalBtn, addKeyModal, closeModalElements);
     setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token);
     setupCopyAndDeleteHandler(keysTableBody, token);
@@ -32,6 +33,7 @@ async function init() {
 function createKeyRow(data) {
     const row = document.createElement("tr");
     row.setAttribute("data-id", data.key_id);
+    row.classList.add("keyRow"); //used for counting total keys
     row.innerHTML = `
         <td class="is-vcentered">${data.service_name} - ${data.key_name}</td>
         <td class="is-vcentered"><code>...${data.key_hint}</code></td>
@@ -89,6 +91,8 @@ async function fetchKeys(token, keysTableBody) {
             const row = createKeyRow(keys[x]);
             keysTableBody.appendChild(row);
         }
+
+        updateKeyCount();
     }
     catch (error) {
         console.error("API Request failed:", error);
@@ -158,6 +162,7 @@ function setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token) {
             document.querySelector("#keyValue").value = "";
 
             addKeyModal.classList.remove("is-active");
+            updateKeyCount();
         }
         catch (error) {
             console.error("API Request failed:", error);
@@ -268,6 +273,7 @@ function setupCopyAndDeleteHandler(keysTableBody, token) {
             if (success) {
                 row.remove();
                 checkEmptyState(keysTableBody);
+                updateKeyCount();
             }
         }
     });
@@ -346,4 +352,14 @@ function setupEditModal(keysTableBody, token) {
             editKeyModal.classList.remove("is-active");
         });
     }
+}
+
+function setUserAvatar(avatarURL){
+    document.querySelector("#userAvatar").setAttribute("src", avatarURL);
+}
+
+function updateKeyCount(){
+    const totalKeys = document.querySelectorAll(".keyRow");
+    const keys = document.querySelector("#totalKeyCount");
+    keys.textContent = totalKeys.length;
 }
