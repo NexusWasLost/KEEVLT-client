@@ -28,7 +28,6 @@ body {
   color: var(--primary-accent-color) !important;
   font-family: "Rubik Glitch", "Bricolage Grotesque", sans-serif, system-ui;
   font-weight: 400 !important;
-  letter-spacing: 0.1rem !important;
 }
 
 a {
