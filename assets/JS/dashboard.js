@@ -1,4 +1,5 @@
-import { getSession, hasAuthExpired, baseURL } from "./script.js";
+import { getSession, hasAuthExpired } from "./script.js";
+import { showAlert, showConfirm } from "./alert_modal.js";
 
 document.addEventListener("DOMContentLoaded", init);
 
@@ -142,7 +143,7 @@ function setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token) {
         const apiKeyValue = document.querySelector("#keyValue").value;
 
         if (!serviceName || !apiKeyName || !apiKeyValue) {
-            alert("Please fill in all required fields.");
+            await showAlert("Please fill in all required fields.");
             return;
         }
 
@@ -163,7 +164,7 @@ function setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token) {
             if(await hasAuthExpired(response.status)) return;
 
             if (!response.ok) {
-                alert("Server refused request");
+                await showAlert("Server refused request");
                 return;
             }
 
@@ -184,7 +185,7 @@ function setupSaveKey(saveKeyBtn, addKeyModal, keysTableBody, token) {
         }
         catch (error) {
             console.error("API Request failed:", error);
-            alert("Network error");
+            await showAlert("Network error");
         }
     });
 }
@@ -202,7 +203,7 @@ async function deleteKey(keyId, token) {
         if(await hasAuthExpired(response.status)) return;
 
         if (!response.ok) {
-            alert("Failed to delete the key.");
+            await showAlert("Failed to delete the key.");
             return false;
         }
 
@@ -210,7 +211,7 @@ async function deleteKey(keyId, token) {
     }
     catch (error) {
         console.error("Delete request failed:", error);
-        alert("Network error while trying to delete key.");
+        await showAlert("Network error while trying to delete key.");
         return false;
     }
 }
@@ -233,7 +234,7 @@ async function updateKey(keyId, token, newServiceName, newAPIKeyName) {
         if(await hasAuthExpired(response.status)) return;
 
         if (!response.ok) {
-            alert("Failed to update key.");
+            await showAlert("Failed to update key.");
             return false;
         }
 
@@ -241,7 +242,7 @@ async function updateKey(keyId, token, newServiceName, newAPIKeyName) {
     }
     catch (error) {
         console.error("Update request failed:", error);
-        alert("Network error while updating key.");
+        await showAlert("Network error while updating key.");
         return false;
     }
 }
@@ -267,7 +268,7 @@ function setupCopyAndDeleteHandler(keysTableBody, token) {
                 if(await hasAuthExpired(response.status)) return;
 
                 if (!response.ok) {
-                    alert("Failed to fetch the key.");
+                    await showAlert("Failed to fetch the key.");
                     return;
                 }
 
@@ -284,13 +285,13 @@ function setupCopyAndDeleteHandler(keysTableBody, token) {
             }
             catch (error) {
                 console.error("Copy request failed:", error);
-                alert("Network error while copying key.");
+                await showAlert("Network error while copying key.");
             }
         }
 
         // --- Delete Key ---
         if (e.target.classList.contains("btn-del")) {
-            const confirmed = confirm("Are you sure you want to delete this key?");
+            const confirmed = await showConfirm("Delete Key", "Are you sure? This is permanent !");
             if (!confirmed) return;
 
             const success = await deleteKey(keyId, token);

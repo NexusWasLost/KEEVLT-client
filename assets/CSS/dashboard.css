@@ -81,18 +81,6 @@
     margin-right: 0.75rem !important;
 }
 
-/* Save Button with Primary Accent */
-.btn-save-modal {
-    background-color: var(--primary-accent-color) !important;
-    color: white !important;
-    border: none !important;
-    font-weight: 600;
-}
-
-.btn-save-modal:hover {
-    opacity: 0.9;
-}
-
 .modal-card-head,
 .modal-card-foot {
     background-color: #111 !important;

@@ -5,7 +5,7 @@
   --secondary-accent-color: #fff;
 }
 
-*{
+* {
   font-family: "Bricolage Grotesque", sans-serif;
   font-weight: 500;
   font-style: normal;
@@ -23,7 +23,7 @@ body {
   background-color: var(--primary-accent-color);
 }
 
-#brand-name{
+#brand-name {
   font-size: 2rem !important;
   color: var(--primary-accent-color) !important;
   font-family: "Rubik Glitch", "Bricolage Grotesque", sans-serif, system-ui;
@@ -36,7 +36,7 @@ a {
 }
 
 /* for icons */
-.r-icon{
+.r-icon {
   margin-left: 5px;
 }
 
@@ -70,6 +70,18 @@ a {
 
 main {
   flex: 1;
+}
+
+/* main button for modals */
+.btn-save-modal {
+  background-color: var(--primary-accent-color) !important;
+  color: var(--secondary-accent-color) !important;
+  border: none !important;
+  font-weight: 600;
+}
+
+.btn-save-modal:hover {
+  opacity: 0.9;
 }
 
 .footer {

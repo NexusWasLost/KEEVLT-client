@@ -1,4 +1,5 @@
-import { getSession, logoutUser, baseURL } from "./script.js";
+import { getSession, logoutUser } from "./script.js";
+import { showConfirm, showAlert } from "./alert_modal.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
     const session = await getSession();
@@ -45,7 +46,7 @@ function setupDeleteUser(token){
     if (!delBtn) return;
 
     delBtn.addEventListener("click", async function () {
-        const confirmed = confirm("Are you sure you want to delete your account? This action cannot be undone.");
+        const confirmed = await showConfirm("Delete Account", "Are you sure you want to delete your account? This action cannot be undone !");
         if (!confirmed) return;
 
         try {
@@ -57,15 +58,15 @@ function setupDeleteUser(token){
             });
 
             if (!response.ok){
-                alert("Failed to delete account.");
+                await showAlert("Failed to delete account.");
                 return;
             }
-            alert("Account deleted successfully.");
+            await showAlert("Account deleted successfully.");
             await logoutUser();
         }
         catch (error){
             console.error("Delete account failed:", error);
-            alert("Network error while deleting account.");
+            await showAlert("Network error while deleting account.");
         }
     });
 }
