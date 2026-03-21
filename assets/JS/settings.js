@@ -1,4 +1,4 @@
-import { getSession, logoutUser, baseURL } from "./script.js";
+import { getSession, logoutUser, hasAuthExpired, baseURL } from "./script.js";
 import { showConfirm, showAlert } from "./alert_modal.js";
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -56,6 +56,8 @@ function setupDeleteUser(token){
                     "Authorization": "Bearer " + token
                 }
             });
+
+            if(await hasAuthExpired(response.status)) return;
 
             if (!response.ok){
                 await showAlert("Failed to delete account.");
