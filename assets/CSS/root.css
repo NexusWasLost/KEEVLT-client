@@ -88,6 +88,6 @@ main {
   padding: 2rem 1rem !important;
   color: var(--secondary-accent-color);
   background: transparent !important;
-  margin-top: 4rem;
+  margin-top: 1rem;
   border-top: 1px solid #1a1a1a;
 }
