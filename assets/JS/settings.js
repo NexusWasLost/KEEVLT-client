@@ -1,4 +1,4 @@
-import { getSession, logoutUser } from "./script.js";
+import { getSession, logoutUser, baseURL } from "./script.js";
 import { showConfirm, showAlert } from "./alert_modal.js";
 
 document.addEventListener("DOMContentLoaded", async function () {

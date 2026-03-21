@@ -1,4 +1,4 @@
-import { getSession, hasAuthExpired } from "./script.js";
+import { getSession, hasAuthExpired, baseURL } from "./script.js";
 import { showAlert, showConfirm } from "./alert_modal.js";
 
 document.addEventListener("DOMContentLoaded", init);
