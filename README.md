@@ -4,12 +4,7 @@
 
 # CYPHR
 
-![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
-
-### Edge-Native API Key Management Service
-
-Secure, low-latency API key management service built on an edge-native serverless architecture.
-
-### **https://cyphr.pages.dev**
+***🔺 Visit CYPHR at:***
+###  **https://cyphr.pages.dev**
 
 </div><br>
